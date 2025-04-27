@@ -2,8 +2,8 @@ name: Berlin VSH Bot
 
 on:
   schedule:
-    # Run at 7AM, 10AM, 1PM, 4PM (every 3 hours starting from 7AM until 6PM, weekdays only)
-    - cron: '0 5-16/3 * * 1-5' 
+    # Run at 7AM, 10AM, 1PM, 4PM Berlin Time (adjusted for UTC)
+    - cron: '0 5-16/3 * * 1-5'
   workflow_dispatch:
 
 jobs:
@@ -18,14 +18,17 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Pull Docker Image
-        run: docker pull lapey/send_vsh_bot
+        run: docker pull lapey/send_vsh_bot:latest
 
       - name: Run Docker Container
         run: |
-          docker run --rm \
+          docker run --rm --name vsh-bot \
             -e TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}" \
             -e TELEGRAM_CHAT_ID="${{ secrets.TELEGRAM_CHAT_ID }}" \
-            your-dockerhub-username/berlin-vsh-bot:latest
+            lapey/send_vsh_bot:latest
 
       - name: Logout from Docker Hub
         run: docker logout
+
+      - name: Delete Docker Container
+        run: docker rm vsh-bot
