@@ -85,12 +85,15 @@
 # source .env
 # set +a
 
+
+# BOT_TOKEN="7575720770:AAEPPKjSNoe2kXEfTdh9OmP7p44nNeNLEY4"
+# CHAT_ID="6060529404"
+
 URL="https://service.berlin.de/terminvereinbarung/termin/taken/"
 BASE_URL="https://service.berlin.de/terminvereinbarung/termin/taken/?dienstleister="
 INTERVAL=180  # check every 3 minutes
 
-BOT_TOKEN="7575720770:AAEPPKjSNoe2kXEfTdh9OmP7p44nNeNLEY4"
-CHAT_ID="6060529404"
+
 
 # Arrays of dienstleister IDs and corresponding district names 
 DIESTLEISTER_IDS=("325853" "351438" "351444" "122626" "122628" "351636" "122659" "122664" "122666" "325987" "351435" "122671")
@@ -104,6 +107,8 @@ send_telegram() {
         -d text="$MESSAGE" \
         -d parse_mode="Markdown" > /dev/null
 }
+
+echo "here we are $TELEGRAM_BOT_TOKEN"
 
 # while true; do
     TIMESTAMP=$(date)
