@@ -9,8 +9,7 @@
 # BASE_URL="https://service.berlin.de/terminvereinbarung/termin/taken/?dienstleister="
 # INTERVAL=180  # check every 3 minutes
 
-# BOT_TOKEN="7575720770:AAEPPKjSNoe2kXEfTdh9OmP7p44nNeNLEY4"
-# CHAT_ID="6060529404"
+
 # # DIESTLEISTER_IDS=(
 # #     "325853"  # Charlottenburg-Wilmersdorf
 # #     "351438"  # Friedrichshain-Kreuzberg

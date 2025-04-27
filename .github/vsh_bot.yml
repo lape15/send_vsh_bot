@@ -3,7 +3,7 @@ name: Berlin VSH Bot
 on:
   schedule:
     # Run at 7AM, 10AM, 1PM, 4PM (every 3 hours starting from 7AM until 6PM, weekdays only)
-    - cron: '0 7,10,13,16 * * 1-5'
+    - cron: '0 5-16/3 * * 1-5' 
   workflow_dispatch:
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Pull Docker Image
-        run: docker pull your-dockerhub-username/berlin-vsh-bot:latest
+        run: docker pull lapey/send_vsh_bot
 
       - name: Run Docker Container
         run: |
