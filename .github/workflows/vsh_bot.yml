@@ -39,5 +39,4 @@ jobs:
       - name: Logout from Docker Hub
         run: docker logout
 
-      - name: Delete Docker Container
-        run: docker rm lapey/send_vsh_bot:latest
+      
