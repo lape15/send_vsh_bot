@@ -1,8 +1,9 @@
-name: Berlin VSH Bot
+
+name: Berlin Appointment Checker VSH Bot
 
 on:
   schedule:
-    # Run at 7AM, 10AM, 1PM, 4PM Berlin Time (adjusted for UTC)
+    # Run at 7AM, 10AM, 1PM, 4PM (every 3 hours starting from 7AM until 6PM, weekdays only)
     - cron: '0 5-16/3 * * 1-5'
   workflow_dispatch:
 
@@ -20,9 +21,17 @@ jobs:
       - name: Pull Docker Image
         run: docker pull lapey/send_vsh_bot:latest
 
+      # List TELEGRAM_* env vars inside the container to debug
+      - name: List environment variables in container
+        run: |
+          docker run --rm \
+            -e TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}" \
+            -e TELEGRAM_CHAT_ID="${{ secrets.TELEGRAM_CHAT_ID }}" \
+            lapey/send_vsh_bot:latest /bin/sh -c "env | grep TELEGRAM_"
+
       - name: Run Docker Container
         run: |
-          docker run --rm --name vsh-bot \
+          docker run --rm \
             -e TELEGRAM_BOT_TOKEN="${{ secrets.TELEGRAM_BOT_TOKEN }}" \
             -e TELEGRAM_CHAT_ID="${{ secrets.TELEGRAM_CHAT_ID }}" \
             lapey/send_vsh_bot:latest
@@ -31,5 +40,4 @@ jobs:
         run: docker logout
 
       - name: Delete Docker Container
-        run: docker rm vsh-bot
-
+        run: docker rm lapey/send_vsh_bot:latest
